@@ -18,7 +18,7 @@
         <ul>
           <li v-for="(item,index) in disclist" class="item" :key="index">
             <div class="icon">
-              <img width="60" height="60" :src="item.imgurl" alt=""/>
+              <img width="60" height="60" v-lazy="item.imgurl" alt=""/>
             </div>
             <div class="text">
               <h2 class="name" v-html="item.creator.name"></h2>
@@ -26,6 +26,9 @@
             </div>
           </li>
         </ul>
+      </div>
+      <div class="loading-container" v-show="!disclist.length">
+        <Loading></Loading>
       </div>
       </div>
     </scroll>
@@ -35,11 +38,13 @@
 import { getRecommend, getDiscList } from 'api/recommend.js'
 import Scroll from 'base/scroll/scroll'
 import Silder from 'base/silder/silder'
+import Loading from 'base/loading/loading'
 import { ERR_OK } from 'api/config.js'
 export default {
   components: {
     Silder,
-    Scroll
+    Scroll,
+    Loading
   },
   data () {
     return {
@@ -48,10 +53,10 @@ export default {
     }
   },
   created () {
-    setTimeout(() => {
-      this._getRecommend()
-    }, 2000)
+    this._getRecommend()
+    // setTimeout(() => {
     this._getDiscList()
+    // }, 2000)
   },
   methods: {
     _getRecommend () {
