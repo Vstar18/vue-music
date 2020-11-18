@@ -12,7 +12,7 @@
           {{item.title}}
         </h2>
         <ul>
-          <li v-for="(i, iIndex) in item.items" :key="iIndex" class="list-group-item">
+          <li @click="selectItem(i)" v-for="(i, iIndex) in item.items" :key="iIndex" class="list-group-item">
             <img class="avatar" v-lazy="i.avatar">
             <span class="name">{{i.name}}</span>
           </li>
@@ -118,6 +118,10 @@ export default {
     }
   },
   methods: {
+    selectItem (data) {
+      debugger
+      this.$emit('select', data)
+    },
     onShortCutListTouchStart (e) {
       let anchorIndex = getData(e.target, 'index')
       this.touch.y1 = e.touches[0].pageY
