@@ -119,7 +119,6 @@ export default {
   },
   methods: {
     selectItem (data) {
-      debugger
       this.$emit('select', data)
     },
     onShortCutListTouchStart (e) {
